@@ -1,5 +1,5 @@
 # Emo2Repo
-
+[![Open Source Love svg1](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
 ![Emo2Repo logo](https://i.imgur.com/ypC3rVf.png)
 
 Emo2Repo is a application that match your emotion with a github repo! (Repo has emotion too!)
