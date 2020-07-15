@@ -12,7 +12,7 @@ import cv2
 class Test_app(unittest.TestCase):
     def test_stream_video(self):
         with app.app.test_client() as c:
-            a = c.post('/video/request')
+            a = c.get('/music/happy')
         print(a.data)
     
 if __name__ == "__main__":
