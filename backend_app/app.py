@@ -21,7 +21,6 @@ app = Flask(__name__)
 def get_emo_video():
     time.sleep(0.5)
     cap = cv2.VideoCapture('rtsp://192.168.31.110:1234/test')
-    # cap = cv2.VideoCapture(url)
     while not cap.isOpened():
         pass
     res = []
@@ -55,8 +54,9 @@ def emo_recognition(img_path):
 # get music by emotion category
 @app.route('/music/<path:foldername>')
 def download_file(foldername):
-    filename = random.choice([x for x in os.listdir(f"./music/{foldername}") if os.path.isfile(os.path.join(f"./music/{foldername}", x))])
-    return send_from_directory(f'./music/{foldername}', filename)
+    cur_loc = os.path.dirname(os.path.realpath(__file__))
+    filename = random.choice([x for x in os.listdir(f"{cur_loc}/music/{foldername}") if os.path.isfile(os.path.join(f"{cur_loc}/music/{foldername}", x))])
+    return send_from_directory(f'{cur_loc}/music/{foldername}', filename)
 
 if __name__ == '__main__':
     app.debug = True
