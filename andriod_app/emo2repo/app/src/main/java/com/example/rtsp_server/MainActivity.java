@@ -115,7 +115,7 @@ public class MainActivity extends Activity implements
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA},
                     50); }
         queue1 = Volley.newRequestQueue(this);
-        stringRequest1 = new StringRequest(Request.Method.GET, "http://192.168.31.110:1235/video/emo",
+        stringRequest1 = new StringRequest(Request.Method.GET, "http://192.168.31.110:1235/video/emo", //here change to backend server's IP address
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -125,7 +125,7 @@ public class MainActivity extends Activity implements
                         int resID = res.getIdentifier(response.toLowerCase(), "drawable", getPackageName());
                         imgemo.setImageResource(resID);
                         try{
-                        setSong("http://192.168.31.110:1235/music/"+ response.toLowerCase());}
+                        setSong("http://192.168.31.110:1235/music/"+ response.toLowerCase());} //here change to backend server's IP address
                         catch (IOException ex){
                             System.out.println(ex.toString());
                             System.out.println("setting song failed");
@@ -209,8 +209,8 @@ public class MainActivity extends Activity implements
 
         mSurfaceView.getHolder().addCallback(this);
 
-        selectQuality();
-//        new play_music().execute("http://192.168.31.110:1235/music/neutral");
+        selectQuality(); 
+//        new play_music().execute("http://192.168.31.110:1235/music/neutral"); //here change to backend server's IP address 
 
     }
 
