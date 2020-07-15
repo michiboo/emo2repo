@@ -20,8 +20,7 @@ app = Flask(__name__)
 @app.route('/video/emo/', methods=['GET'])
 def get_emo_video():
     time.sleep(0.5)
-    cap = cv2.VideoCapture('rtsp://192.168.31.110:1234/test')
-    # cap = cv2.VideoCapture(url)
+    cap = cv2.VideoCapture('rtsp://192.168.31.110:1234/test') # here input your streaming server IP address 
     while not cap.isOpened():
         pass
     res = []
