@@ -33,7 +33,7 @@ Install dependencies:
 <br>
 <br>
 Start server:
-```pip app.py```
+```python app.py```
 
 ### 3. Start Andriod App 
 Before building APP in Andriod studio you should make sure the IP address of streaming server & backend server are correct.
