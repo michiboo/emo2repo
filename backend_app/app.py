@@ -10,7 +10,7 @@ import requests
 
 global model
 global graph
-graph = tf.get_default_graph() 
+graph = tf.compat.v1.get_default_graph()
 # model = load_model(".hdf5") # put your model path
 UPLOAD_FOLDER = './imgs'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'WebP'])
