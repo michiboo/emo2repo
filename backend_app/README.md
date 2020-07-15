@@ -2,5 +2,9 @@
 
 ## Quick start
 
+Install dependencies:
 `pip install -r requirements.txt`
-`pip app.py`
+<br>
+<br>
+Start server:
+```pip app.py```
