@@ -13,7 +13,7 @@ class Test_app(unittest.TestCase):
     def test_stream_video(self):
         with app.app.test_client() as c:
             a = c.get('/music/happy')
-        print(a.data)
+        assert a is not None
     
 if __name__ == "__main__":
     unittest.main()
