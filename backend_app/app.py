@@ -11,7 +11,7 @@ import requests
 global model
 global graph
 graph = tf.get_default_graph() 
-model = load_model(".hdf5") # put your model path
+# model = load_model(".hdf5") # put your model path
 UPLOAD_FOLDER = './imgs'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'WebP'])
 app = Flask(__name__)
@@ -49,7 +49,7 @@ def allowed_file(filename):
 
 def emo_recognition(img_path):
     # to be implemented
-    return '' # predicted label
+    return 'happy' # predicted label
 
 
 # get music by emotion category
@@ -60,6 +60,5 @@ def download_file(foldername):
 
 if __name__ == '__main__':
     app.debug = True
-    app.run(host='192.168.31.110', port=1235, threaded=True)
+    app.run(host='localhost', port=1235, threaded=True)
     # img = cv2.imread('out.png')
-    # face_plus_plus_api(img)
