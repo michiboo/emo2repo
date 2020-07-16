@@ -49,7 +49,9 @@ def allowed_file(filename):
 def emo_recognition(img_path):
     emots = {'Angry': 0, 'Disgust': 1, 'Fear': 2, 'Happy': 3, 'Neutral': 4, 'Sad': 5, 'Surprise': 6}
    
-    model = load_model("model_v6_23.hdf5")
+    # model = load_model(f"{os.path.dirname(os.path.realpath(file)}/model_v6_23.hdf5")
+    cur_loc = os.path.dirname(os.path.realpath(__file__))
+    model = load_model(f"{cur_loc}/model_v6_23.hdf5")
     img = cv2.imread(img_path)
     img = cv2.resize(img, (48,48))
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
