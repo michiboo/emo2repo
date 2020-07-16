@@ -1,0 +1,23 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/nicole-danuwidjaja/Projects/emo2repo/android_app/emo2repo/libstreaming/src/main/AndroidManifest.xml:1:1-5:12
+INJECTED from /Users/nicole-danuwidjaja/Projects/emo2repo/android_app/emo2repo/libstreaming/src/main/AndroidManifest.xml:1:1-5:12
+INJECTED from /Users/nicole-danuwidjaja/Projects/emo2repo/android_app/emo2repo/libstreaming/src/main/AndroidManifest.xml:1:1-5:12
+INJECTED from /Users/nicole-danuwidjaja/Projects/emo2repo/android_app/emo2repo/libstreaming/src/main/AndroidManifest.xml:1:1-5:12
+INJECTED from /Users/nicole-danuwidjaja/Projects/emo2repo/android_app/emo2repo/libstreaming/src/main/AndroidManifest.xml:1:1-5:12
+INJECTED from /Users/nicole-danuwidjaja/Projects/emo2repo/android_app/emo2repo/libstreaming/src/main/AndroidManifest.xml:1:1-5:12
+INJECTED from /Users/nicole-danuwidjaja/Projects/emo2repo/android_app/emo2repo/libstreaming/src/main/AndroidManifest.xml:1:1-5:12
+	package
+		ADDED from /Users/nicole-danuwidjaja/Projects/emo2repo/android_app/emo2repo/libstreaming/src/main/AndroidManifest.xml:2:5-45
+		INJECTED from /Users/nicole-danuwidjaja/Projects/emo2repo/android_app/emo2repo/libstreaming/src/main/AndroidManifest.xml
+		INJECTED from /Users/nicole-danuwidjaja/Projects/emo2repo/android_app/emo2repo/libstreaming/src/main/AndroidManifest.xml
+	android:versionName
+		ADDED from /Users/nicole-danuwidjaja/Projects/emo2repo/android_app/emo2repo/libstreaming/src/main/AndroidManifest.xml:4:5-30
+		INJECTED from /Users/nicole-danuwidjaja/Projects/emo2repo/android_app/emo2repo/libstreaming/src/main/AndroidManifest.xml
+		INJECTED from /Users/nicole-danuwidjaja/Projects/emo2repo/android_app/emo2repo/libstreaming/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/nicole-danuwidjaja/Projects/emo2repo/android_app/emo2repo/libstreaming/src/main/AndroidManifest.xml:1:11-69
+	android:versionCode
+		ADDED from /Users/nicole-danuwidjaja/Projects/emo2repo/android_app/emo2repo/libstreaming/src/main/AndroidManifest.xml:3:5-29
+		INJECTED from /Users/nicole-danuwidjaja/Projects/emo2repo/android_app/emo2repo/libstreaming/src/main/AndroidManifest.xml
+		INJECTED from /Users/nicole-danuwidjaja/Projects/emo2repo/android_app/emo2repo/libstreaming/src/main/AndroidManifest.xml

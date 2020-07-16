@@ -1,0 +1,3 @@
+include ':app'
+rootProject.name='rtsp_server'
+include ':libstreaming'
