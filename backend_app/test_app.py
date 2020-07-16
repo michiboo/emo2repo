@@ -20,7 +20,8 @@ class Test_app(unittest.TestCase):
         assert a is not None
 
     def test_cnn(self):
-        self.assertEqual(emo_recognition('./39.jpg'), 'Surprise')
+        cur_loc = os.path.dirname(os.path.realpath(__file__))
+        self.assertEqual(emo_recognition(f'{cur_loc}/39.jpg'), 'Surprise')
 
 
 if __name__ == "__main__":
