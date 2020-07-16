@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Muzipy</string>
+    <string name="app_name">emo2repo</string>
     <string name="start">Start/Stop Streaming</string>
     <string name="flash">Flash</string>
     <string name="camera">Camera</string>
