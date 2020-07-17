@@ -98,6 +98,7 @@
         android:layout_margin="8dp"
         android:padding="5dp"
         android:text="Repo: "
+        android:autoLink="web"
         android:textColor="@android:color/background_dark" />
 
     <FrameLayout

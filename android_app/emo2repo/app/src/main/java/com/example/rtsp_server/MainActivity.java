@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.hardware.Camera.CameraInfo;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -20,6 +21,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.format.Formatter;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.View;
@@ -57,7 +59,12 @@ import net.majorkernelpanic.streaming.gl.SurfaceView;
 import net.majorkernelpanic.streaming.rtsp.RtspClient;
 import net.majorkernelpanic.streaming.video.VideoQuality;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -91,10 +98,12 @@ public class MainActivity extends AppCompatActivity implements
     private RequestQueue queue1;
     private ImageView imgemo;
     private StringRequest stringRequest1;
+    private StringRequest getrepo;
     private Button but_getemo;
     private TextView songstr;
     private MediaPlayer mediaPlayer;
     private Toolbar myToolbar;
+    private  TextView repostr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements
         haveNetworkConnection();
         System.out.println(ip);
         try{
-            setSong("http://192.168.31.110:1235/music/neutral");}
+            setSong("http://192.168.1.146:1235/music/neutral");}
         catch (IOException ex){
             System.out.println(ex.toString());
             System.out.println("setting song failed");
@@ -118,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA},
                     50); }
         queue1 = Volley.newRequestQueue(this);
-        stringRequest1 = new StringRequest(Request.Method.GET, "http://192.168.31.110:1235/video/emo",
+        stringRequest1 = new StringRequest(Request.Method.GET, "http://192.168.1.146:1235/video/emo",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -128,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements
                         int resID = res.getIdentifier(response.toLowerCase(), "drawable", getPackageName());
                         imgemo.setImageResource(resID);
                         try{
-                        setSong("http://192.168.31.110:1235/music/"+ response.toLowerCase());}
+                        setSong("http://192.168.1.146:1235/music/"+ response.toLowerCase());}
                         catch (IOException ex){
                             System.out.println(ex.toString());
                             System.out.println("setting song failed");
@@ -136,6 +145,21 @@ public class MainActivity extends AppCompatActivity implements
                         String[] parts = songstr.getText().toString().split(":");
                         songstr.setText(parts[0] + ": " + memo.getText().toString());
                         System.out.println("Finish setting song ");
+                        getrepo = new StringRequest(Request.Method.GET, "http://192.168.1.146:1235/repo/"+ response.toLowerCase(),
+                                new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        repostr.setText("Repo Link: "+ response);
+                                        repostr.setMovementMethod(LinkMovementMethod.getInstance());
+                                        repostr.setLinkTextColor(Color.BLUE);
+                                    }
+                                }, new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                repostr.setText("That didn't work!");
+                            }
+                        });
+                        queue1.add(getrepo);
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -143,6 +167,8 @@ public class MainActivity extends AppCompatActivity implements
                 memo.setText("That didn't work!");
             }
         });
+
+
 
         mButtonVideo = (Button) findViewById(R.id.video);
         mButtonSave = (Button) findViewById(R.id.save);
@@ -165,6 +191,7 @@ public class MainActivity extends AppCompatActivity implements
 
         songstr = findViewById(R.id.song);
         myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        repostr = findViewById(R.id.repo);
 
         mRadioGroup.setOnCheckedChangeListener(this);
         mRadioGroup.setOnClickListener(this);
@@ -181,7 +208,7 @@ public class MainActivity extends AppCompatActivity implements
 
         SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
         if (mPrefs.getString("uri", null) != null) mLayoutServerSettings.setVisibility(View.GONE);
-        mEditTextURI.setText(mPrefs.getString("uri", getString(R.string.default_stream)));
+        mEditTextURI.setText(mPrefs.getString("uri", ""));
         mEditTextPassword.setText(mPrefs.getString("password", ""));
         mEditTextUsername.setText(mPrefs.getString("username", ""));
 
@@ -215,7 +242,7 @@ public class MainActivity extends AppCompatActivity implements
         mSurfaceView.getHolder().addCallback(this);
 
         selectQuality();
-//        new play_music().execute("http://192.168.31.110:1235/music/neutral");
+//        new play_music().execute("http://192.168.1.146:1235/music/neutral");
 
     }
 
@@ -336,6 +363,7 @@ public class MainActivity extends AppCompatActivity implements
 
             // We parse the URI written in the Editext
             Pattern uri = Pattern.compile("rtsp://(.+):(\\d*)/(.+)");
+            System.out.println(mEditTextURI.getText());
             Matcher m = uri.matcher(mEditTextURI.getText()); m.find();
             ip = m.group(1);
             port = m.group(2);
