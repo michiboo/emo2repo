@@ -12,7 +12,7 @@ import requests
 global model
 global graph
 global sess
-sess = tf.Session()
+sess = tf.compat.v1.Session()
 graph = tf.compat.v1.get_default_graph()
 # model = load_model(".hdf5") # put your model path
 UPLOAD_FOLDER = './imgs'

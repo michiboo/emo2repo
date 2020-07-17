@@ -9,7 +9,7 @@ import sys
 import subprocess
 import threading
 from io import StringIO
-import cv2
+import cv2.cv2 as cv2
 from app import emo_recognition
 
 
@@ -21,7 +21,7 @@ class Test_app(unittest.TestCase):
 
     def test_cnn(self):
         cur_loc = os.path.dirname(os.path.realpath(__file__))
-        self.assertEqual(emo_recognition(f'{cur_loc}/39.jpg'), 'Surprise')
+        self.assertEqual(emo_recognition(cv2.imread(f'{cur_loc}/40.jpg')), 'surprise')
 
 
 if __name__ == "__main__":
