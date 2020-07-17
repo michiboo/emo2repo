@@ -18,4 +18,4 @@ jobs:
       with:
         java-version: 1.8
     - name: Build with Gradle
-      run: ./andriod_app/emo2repo/gradlew build
+      run: ./android_app/emo2repo/gradlew build
