@@ -20,7 +20,7 @@ docker build -t rtspserver .
 ```
 Create & run container:
 ```
-docker run  -i --name example -p 1234:1234 -t rtspserver
+docker run  -i --name example --network host -t rtspserver
 ```
 Start the server:
 ```
