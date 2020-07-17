@@ -47,8 +47,21 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def emo_recognition(img_path):
-    # to be implemented
-    return 'happy' # predicted label
+    emots = {'Angry': 0, 'Disgust': 1, 'Fear': 2, 'Happy': 3, 'Neutral': 4, 'Sad': 5, 'Surprise': 6}
+   
+    # model = load_model(f"{os.path.dirname(os.path.realpath(file)}/model_v6_23.hdf5")
+    cur_loc = os.path.dirname(os.path.realpath(__file__))
+    model = load_model(f"{cur_loc}/model_v6_23.hdf5")
+    img = cv2.imread(img_path)
+    img = cv2.resize(img, (48,48))
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    img = np.reshape(img, [1, img.shape[0], img.shape[1], 1])
+
+    em_class = np.argmax(model.predict(img))
+    label_display = dict((a,b) for b,a in emots.items())
+    pred_label = label_display[em_class]
+    
+    return pred_label.lower() # predicted label
 
 
 # get music by emotion category
@@ -58,7 +71,16 @@ def download_file(foldername):
     filename = random.choice([x for x in os.listdir(f"{cur_loc}/music/{foldername}") if os.path.isfile(os.path.join(f"{cur_loc}/music/{foldername}", x))])
     return send_from_directory(f'{cur_loc}/music/{foldername}', filename)
 
+@app.route('/repo/<path:foldername>')
+def get_repo(foldername):
+    cur_loc = os.path.dirname(os.path.realpath(__file__))
+    with open(f"{cur_loc}/repos/{foldername}.txt", 'r') as repofile:
+        repos = repofile.readlines()
+    repo = random.choice(repos)
+    return repo
+
 if __name__ == '__main__':
     app.debug = True
     app.run(host='localhost', port=1235, threaded=True)
     # img = cv2.imread('out.png')
+    
