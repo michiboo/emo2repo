@@ -3,13 +3,16 @@ import face_recognition
 import os, time, re
 import cv2.cv2 as cv2, numpy as np
 import keras
-from keras.models import load_model
+from tensorflow.python.keras.backend import set_session
+from tensorflow.python.keras.models import load_model
 import tensorflow as tf
 import random
 import requests
 
 global model
 global graph
+global sess
+sess = tf.Session()
 graph = tf.compat.v1.get_default_graph()
 # model = load_model(".hdf5") # put your model path
 UPLOAD_FOLDER = './imgs'
@@ -20,7 +23,7 @@ app = Flask(__name__)
 @app.route('/video/emo/', methods=['GET'])
 def get_emo_video():
     time.sleep(0.5)
-    cap = cv2.VideoCapture('rtsp://192.168.31.110:1234/test') # here input your streaming server IP address 
+    cap = cv2.VideoCapture('rtsp://192.168.1.146:1234/test') # here input your streaming server IP address 
     while not cap.isOpened():
         pass
     res = []
@@ -34,7 +37,7 @@ def get_emo_video():
             e = emo_recognition(np.rot90(img))
             if e:
                 res.append(e)
-            count += 1
+                count += 1
         if count > 10 or res:
             break
     cap.release()
@@ -46,18 +49,21 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-def emo_recognition(img_path):
+def emo_recognition(img):
     emots = {'Angry': 0, 'Disgust': 1, 'Fear': 2, 'Happy': 3, 'Neutral': 4, 'Sad': 5, 'Surprise': 6}
    
-    # model = load_model(f"{os.path.dirname(os.path.realpath(file)}/model_v6_23.hdf5")
-    cur_loc = os.path.dirname(os.path.realpath(__file__))
-    model = load_model(f"{cur_loc}/model_v6_23.hdf5")
-    img = cv2.imread(img_path)
+    face_locations = face_recognition.face_locations(img)
+    if not face_locations:
+        print('no face')
+        return None
     img = cv2.resize(img, (48,48))
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     img = np.reshape(img, [1, img.shape[0], img.shape[1], 1])
-
-    em_class = np.argmax(model.predict(img))
+    with graph.as_default():
+        set_session(sess)
+        cur_loc = os.path.dirname(os.path.realpath(__file__))
+        model = load_model(f"{cur_loc}/model_v6_23.hdf5")
+        em_class = np.argmax(model.predict(img))
     label_display = dict((a,b) for b,a in emots.items())
     pred_label = label_display[em_class]
     
@@ -73,5 +79,5 @@ def download_file(foldername):
 
 if __name__ == '__main__':
     app.debug = True
-    app.run(host='localhost', port=1235, threaded=True)
+    app.run(host='192.168.1.146', port=1235, threaded=True)
     # img = cv2.imread('out.png')
