@@ -23,6 +23,10 @@ class Test_app(unittest.TestCase):
         cur_loc = os.path.dirname(os.path.realpath(__file__))
         self.assertEqual(emo_recognition(cv2.imread(f'{cur_loc}/40.jpg')), 'surprise')
 
+    def test_get_repo(self):
+        with app.app.test_client() as c:
+            a = c.get('/repo/happy')
+        assert 'github' in str(a.data)
 
 if __name__ == "__main__":
     unittest.main()

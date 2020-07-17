@@ -67,7 +67,7 @@ def emo_recognition(img):
     label_display = dict((a,b) for b,a in emots.items())
     pred_label = label_display[em_class]
     
-    return pred_label # predicted label
+    return pred_label.lower() # predicted label
 
 
 # get music by emotion category
@@ -77,7 +77,16 @@ def download_file(foldername):
     filename = random.choice([x for x in os.listdir(f"{cur_loc}/music/{foldername}") if os.path.isfile(os.path.join(f"{cur_loc}/music/{foldername}", x))])
     return send_from_directory(f'{cur_loc}/music/{foldername}', filename)
 
+@app.route('/repo/<path:foldername>')
+def get_repo(foldername):
+    cur_loc = os.path.dirname(os.path.realpath(__file__))
+    with open(f"{cur_loc}/repos/{foldername}.txt", 'r') as repofile:
+        repos = repofile.readlines()
+    repo = random.choice(repos)
+    return repo
+
 if __name__ == '__main__':
     app.debug = True
     app.run(host='192.168.1.146', port=1235, threaded=True)
     # img = cv2.imread('out.png')
+    
